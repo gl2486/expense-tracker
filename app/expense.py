@@ -22,17 +22,26 @@ def convert_currency(currency_base, currency_output, cost):
     return conversion_amt
 
 
-
-def input_expense():
-
+def list_currency():
     #https://exchangerate.host/#/#docs
     request_url = "https://api.exchangerate.host/symbols"
     response = requests.get(request_url)
     data = json.loads(response.text)
-
     symbols = data['symbols']
     currency_list = list(symbols.keys())
 
+    return currency_list
+
+
+def input_expense():
+
+    ##https://exchangerate.host/#/#docs
+    #request_url = "https://api.exchangerate.host/symbols"
+    #response = requests.get(request_url)
+    #data = json.loads(response.text)
+    #symbols = data['symbols']
+    #currency_list = list(symbols.keys())
+    currency_list = list_currency()
 
     #CURRENCY INPUT VALIDATION
     while True:
@@ -194,7 +203,7 @@ def input_expense():
 
         elif add_row == "D":
         
-            delete_row = input("Do you want to delete row? [input no.]: ")
+            delete_row = input("Do you want to delete expense row? [input no.]: ")
             try:
                 delete_row_obj = int(delete_row)
                 if 0 <= delete_row_obj <= len(df.index):
@@ -227,7 +236,7 @@ def input_expense():
             df.sort_values(by='Date').to_csv(f"{csv_filepath}/my_expense.csv", index=False)
             break
         elif export_csv == "N":
-            print("Thank you for using Expense Report, Goodbye!")
+            print("Thank you for using 'International Expense Tracker', Goodbye!")
             break
         else:
             print("Please try again")
@@ -253,18 +262,19 @@ def input_expense():
     fig.update_layout(title_text='Expense Category Breakdown')
 
     fig.show()
-    print("Thank you for using Expense Report, Goodbye!")
+    print("Thank you for using 'International Expense Tracker', Goodbye!")
     quit()
 
 if __name__ == "__main__":
 
-    #https://exchangerate.host/#/#docs
-    request_url = "https://api.exchangerate.host/symbols"
-    response = requests.get(request_url)
-    data = json.loads(response.text)
+    ##https://exchangerate.host/#/#docs
+    #request_url = "https://api.exchangerate.host/symbols"
+    #response = requests.get(request_url)
+    #data = json.loads(response.text)
+    #symbols = data['symbols']
+    #currency_list = list(symbols.keys())
+    currency_list = list_currency()
 
-    symbols = data['symbols']
-    currency_list = list(symbols.keys())
 
     #READ CSV
     csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data")
@@ -400,7 +410,7 @@ if __name__ == "__main__":
                         df.to_csv(f"{csv_filepath}/my_expense.csv", index=False)
                         break
                     elif export_csv == "N":
-                        print("Thank you for using Expense Report, Goodbye!")
+                        print("Thank you for using 'International Expense Tracker', Goodbye!")
                         break
                     else:
                         print("Please try again")
@@ -420,7 +430,7 @@ if __name__ == "__main__":
                                             )])
                 fig.update_layout(title_text='Expense Category Breakdown')
                 fig.show()
-                print("Thank you for using Expense Report, Goodbye!")
+                print("Thank you for using 'International Expense Tracker', Goodbye!")
                 quit()
 
         else:
