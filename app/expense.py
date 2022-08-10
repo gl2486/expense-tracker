@@ -1,13 +1,19 @@
 
+from calendar import c
+from enum import auto
 import requests
 import json
 import pandas as pd
 #from pandas import DataFrame
 import datetime
-            
+import plotly.express as px
+#import plotly.graph_objects as go
+
+
 
 def input_expense():
 
+    #https://exchangerate.host/#/#docs
     request_url = "https://api.exchangerate.host/symbols"
     response = requests.get(request_url)
     data = json.loads(response.text)
@@ -17,7 +23,7 @@ def input_expense():
 
     #CURRENCY INPUT VALIDATION
     while True:
-        currency_output = input("Enter <BASE> currency code: ").upper()
+        currency_output = input("Enter <BASE> currency code [e.g. USD]: ").upper()
         if currency_output not in currency_list:
             print("please input valid currency code")
             continue
@@ -28,10 +34,11 @@ def input_expense():
 
     #CATEGORY INPUT VALIDATION
     cat_lists = ['auto/gas', 'bill/utility', 'education', 'entertainment', 'food/drink', 'misc', 'shopping', 'travel']
-    print('-'*50)
-    for cat_list in range(len(cat_lists)):  
+    print('-'*60)
+    print('Categories:')
+    for cat_list in range(len(cat_lists)):
         print(cat_list, cat_lists[cat_list])
-    print('-'*50)
+    print('-'*60)
     while True:
         cat = input(f"Enter <{item}> category no.: ")
         try:
@@ -89,10 +96,12 @@ def input_expense():
 
     df = pd.DataFrame({'Item':[item],'Cost':[cost_obj], 'Currency':[currency_base], f'{currency_output} Amount':[conversion_amt], 'Category':[cat_obj], 'Date':[date_obj]})
     
+    print('-'*60)
     print(df)
+    print('-'*60)
 
     while True:
-        add_row = input("Enter [A] to add expense, [D] to delete expense, or any 'key' to generate report: ").upper()
+        add_row = input("Enter [A] to add expense, [D] to delete expense, or any 'key' to end: ").upper()
 
         if add_row == "A":
 
@@ -100,10 +109,10 @@ def input_expense():
             
             #CATEGORY INPUT VALIDATION
             cat_lists = ['auto/gas', 'bill/utility', 'education', 'entertainment', 'food/drink', 'misc', 'shopping', 'travel']
-            print('-'*50)
+            print('-'*60)
             for cat_list in range(len(cat_lists)):  
                 print(cat_list, cat_lists[cat_list])
-            print('-'*50)
+            print('-'*60)
             while True:
                 cat = input(f"Enter <{item}> category no.: ")
                 try:
@@ -164,8 +173,9 @@ def input_expense():
 
             df2 = pd.DataFrame({'Item':[item],'Cost':[cost_obj], 'Currency':[currency_base], f'{currency_output} Amount':[conversion_amt], 'Category':[cat_obj], 'Date':[date_obj]})
             df = pd.concat([df,df2], ignore_index=True)
-
+            print('-'*60)
             print(df)
+            print('-'*60)
             continue
 
         elif add_row == "D":
@@ -176,7 +186,9 @@ def input_expense():
                 if 0 <= delete_row_obj <= len(df.index):
                     df.drop({delete_row_obj}, inplace=True)
                     df.reset_index(drop=True, inplace=True)
+                    print('-'*60)
                     print(df)
+                    print('-'*60)
                 else:
                     print("Please try again")
                 continue
@@ -187,10 +199,43 @@ def input_expense():
         else:
             list_ = [f'{currency_output} Amount']
             df.loc['Total',:] = df[list_].sum()
+            print('-'*60)
             print(df.sort_values(by='Date'))
+            print('-'*60)
             break
+    
+
+    #df_group = df.groupby(['Category'])[f'{currency_output} Amount'].sum()
+    #print(df_group)
+
+
+    my_pivot = df.groupby(["Category"]).agg({f'{currency_output} Amount': ['sum']})
+    my_pivot.columns = ["_".join(col) for col in my_pivot.columns.ravel()]
+    #print(my_pivot)
+
+
+    #GENERATE PIE CHART
+
+    values = my_pivot['USD Amount_sum'].tolist()
+    labels = my_pivot.index.values.tolist()
+
+
+    #labels = ['auto/gas', 'bill/utility', 'education', 'entertainment', 'food/drink', #'misc', 'shopping', 'travel']
+    #values = [xx, xx, xx]
+
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent',
+                                insidetextorientation='radial'
+                                )])
+    fig.show()
+    
 
 input_expense()
 
+#export file, send to email
 
-#def generate_chart():
+
+#values = [1, 10, 1000]
+#labels = ['food', 'travel', 'shopping']
+#
+#fig = px.pie(names = labels, values = values, title = 'our chart')
+#fig.show()
