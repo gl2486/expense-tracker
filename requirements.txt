@@ -1,0 +1,14 @@
+
+#
+# TEST
+#
+
+pytest
+
+#
+#DEVELOPMENT
+#
+
+pandas
+requests
+plotly

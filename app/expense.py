@@ -6,8 +6,19 @@ import json
 import pandas as pd
 #from pandas import DataFrame
 import datetime
-import plotly.express as px
-#import plotly.graph_objects as go
+#import plotly.express as px
+import plotly.graph_objects as go
+
+
+def convert_currency(currency_base, currency_output, cost):
+    request_url = f"https://api.exchangerate.host/latest?base={currency_base}&symbols={currency_output}&amount={cost}&places=2"
+    response = requests.get(request_url)
+    data = json.loads(response.text)
+    #print(type(data))
+    #print(data.keys())
+    conversion_amt = data['rates'][f'{currency_output}']
+
+    return conversion_amt
 
 
 
@@ -66,7 +77,7 @@ def input_expense():
 
     #CURRENCY INPUT VALIDATION
     while True:
-        currency_base = input(f"Enter <{cost}> currency: ").upper()
+        currency_base = input(f"Enter <{cost}> currency code: ").upper()
         if currency_base not in currency_list:
             print("please input valid currency code")
             continue
@@ -86,13 +97,13 @@ def input_expense():
             continue
 
     #CURRENCY CONVERSION
-    request_url = f"https://api.exchangerate.host/latest?base={currency_base}&symbols={currency_output}&amount={cost}&places=2"
-    response = requests.get(request_url)
-    data = json.loads(response.text)
-    #print(type(data))
-    #print(data.keys())
-    conversion_amt = data['rates'][f'{currency_output}']
-
+    #request_url = f"https://api.exchangerate.host/latest?base={currency_base}&symbols={currency_output}&amount={cost}&places=2"
+    #response = requests.get(request_url)
+    #data = json.loads(response.text)
+    ##print(type(data))
+    ##print(data.keys())
+    #conversion_amt = data['rates'][f'{currency_output}']
+    conversion_amt = convert_currency(currency_base, currency_output, cost)
 
     df = pd.DataFrame({'Item':[item],'Cost':[cost_obj], 'Currency':[currency_base], f'{currency_output} Amount':[conversion_amt], 'Category':[cat_obj], 'Date':[date_obj]})
     
@@ -142,7 +153,7 @@ def input_expense():
 
             #CURRENCY INPUT VALIDATION
             while True:
-                currency_base = input(f"Enter <{cost}> currency: ").upper()
+                currency_base = input(f"Enter <{cost}> currency code: ").upper()
                 if currency_base not in currency_list:
                     print("please input valid currency code")
                     continue
@@ -164,12 +175,13 @@ def input_expense():
 
 
             #CURRENCY CONVERSION
-            request_url = f"https://api.exchangerate.host/latest?base={currency_base}&symbols={currency_output}&amount={cost}&places=2"
-            response = requests.get(request_url)
-            data = json.loads(response.text)
-            #print(type(data))
-            #print(data.keys())
-            conversion_amt = data['rates'][f'{currency_output}']
+            #request_url = f"https://api.exchangerate.host/latest?base={currency_base}&symbols={currency_output}&amount={cost}&places=2"
+            #response = requests.get(request_url)
+            #data = json.loads(response.text)
+            ##print(type(data))
+            ##print(data.keys())
+            #conversion_amt = data['rates'][f'{currency_output}']
+            conversion_amt = convert_currency(currency_base, currency_output, cost)
 
             df2 = pd.DataFrame({'Item':[item],'Cost':[cost_obj], 'Currency':[currency_base], f'{currency_output} Amount':[conversion_amt], 'Category':[cat_obj], 'Date':[date_obj]})
             df = pd.concat([df,df2], ignore_index=True)
@@ -210,7 +222,8 @@ def input_expense():
 
 
     my_pivot = df.groupby(["Category"]).agg({f'{currency_output} Amount': ['sum']})
-    my_pivot.columns = ["_".join(col) for col in my_pivot.columns.ravel()]
+    #my_pivot.columns = ["_".join(col) for col in my_pivot.columns.ravel()]
+    my_pivot.columns = ["_".join(col) for col in my_pivot.columns.values]
     #print(my_pivot)
 
 
@@ -219,23 +232,23 @@ def input_expense():
     values = my_pivot['USD Amount_sum'].tolist()
     labels = my_pivot.index.values.tolist()
 
-
-    #labels = ['auto/gas', 'bill/utility', 'education', 'entertainment', 'food/drink', #'misc', 'shopping', 'travel']
-    #values = [xx, xx, xx]
-
     fig = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent',
                                 insidetextorientation='radial'
                                 )])
+    fig.update_layout(title_text='Expense Category Breakdown')
+
     fig.show()
     
 
-input_expense()
+if __name__ == "__main__":
 
-#export file, send to email
+    input_expense()
+
+    #export file, send to email
 
 
-#values = [1, 10, 1000]
-#labels = ['food', 'travel', 'shopping']
-#
-#fig = px.pie(names = labels, values = values, title = 'our chart')
-#fig.show()
+    #values = [1, 10, 1000]
+    #labels = ['food', 'travel', 'shopping']
+    #
+    #fig = px.pie(names = labels, values = values, title = 'our chart')
+    #fig.show()
