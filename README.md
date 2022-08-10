@@ -4,7 +4,7 @@ This is a python application that allows you to create an expense tracker for yo
 
 # Setup 
 
-Optionally fork or close this [remote repository] (...) to create a copy under your own control. Then "clone" or download the remove repository (or your forked copy) onto your local computer, for example your Desktop. Then navigate to wherever you downloaded the repo using the Terminal:
+Optionally fork or close this [remote repository](https://github.com/gl2486/expense-tracker) to create a copy under your own control. Then "clone" or download the remove repository (or your forked copy) onto your local computer, for example your Desktop. Then navigate to wherever you downloaded the repo using the Terminal, e.g.:
 
 ```
 cd ~/Desktop/expense-tracker
@@ -26,16 +26,34 @@ Install package dependencies within the virtual environment:
 pip install -r requirements.txt
 ```
 
-# Usage Instructions
+
+# Usage
 Once you have completed the setup described, above, you can now start running the program.
+
+## Generate Expense Report
+
+Run your expense report:
+
+```
+python app/expense.py
+```
+
+## Testing
+Run tests:
+```
+pytest
+```
+
+# User Instructions
 
 ## Processing User Inputs
 The application should prompt the user to input details of the expenses via command-line interface (CLI). For example:
-+ base currency code [e.g. USD]
++ base report currency code [e.g. USD]
+    + Note: This will serve as the currency that all your inputs are converted to
 + item description
 + select category option
 + cost amount
-+ cost currency code [e.g. EUR]
++ cost currency code [e.g. EUR]. This is the currency of your expense
 + date [e.g. MMDDYYYY format]
 
 User will be able to add expenses or delete rows in the DataFrame within the program.
@@ -48,11 +66,11 @@ It should be able to handle various capitalizations and iterations of the valid 
 If the selection is invalid, the program should display a friendly message to the user and prompt the user to try again. The program should not try to further process an invalid input as it may lead to runtime errors.
 
 # Displaying the Results
-As expense are input into the program, the details are stored in a DataFrame and a preliminary report will be generated at the end.
+As expenses are input into the program, the details are stored in a DataFrame and a preliminary report will be generated at the end.
 
-## Demo
+# Demo
 
-### Expense Data Input
+## Expense Data Input
 ```
 Enter <BASE> currency code [e.g. USD]: USD
 Enter item: Coffee
@@ -77,7 +95,7 @@ Enter date [MMDDYYYY]: 08082022
 ------------------------------------------------------------
 Enter [A] to add expense, [D] to delete expense, or any 'key' to end:
 ```
-### Preliminary Report
+## Preliminary Report
 
 ```
              Item    Cost Currency  USD Amount    Category       Date
@@ -89,21 +107,15 @@ Total         NaN     NaN      NaN     1283.94         NaN        NaT
 
 ```
 
-### Generate a pie chart
-A pie chart will also be created to portray the categories of spend based on the expense items. 
+## Generate your expense report
+If you prefer, you can generate your report and export it into a .csv file along with a pie chart that will open in your web browser.
 
-
-# Usage
-## Generate Expense Report
-
-Run your expense report:
+## Expense report storage (.csv file)
+The .csv file will be in the "data" folder within the folder where your repo is saved on your computer, e.g.:
 
 ```
-python app/expense.py
+../Desktop/expense-tracker/data
 ```
+You will be able to delete existing .csv if it exist, or continue editing the report when you run the program
 
-## Testing
-Run tests:
-```
-pytest
-```
+
