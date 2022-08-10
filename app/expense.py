@@ -268,6 +268,7 @@ if __name__ == "__main__":
 
     #READ CSV
     csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data")
+
     while True:
         if os.path.exists(f"{csv_filepath}/my_expense.csv"):
             df = read_csv(f"{csv_filepath}/my_expense.csv", skipfooter=1 , engine='python')
@@ -422,8 +423,8 @@ if __name__ == "__main__":
                 print("Thank you for using Expense Report, Goodbye!")
                 quit()
 
-            else:
-                input_expense()
+        else:
+            input_expense()
 
 
     #values = [1, 10, 1000]
