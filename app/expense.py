@@ -354,7 +354,7 @@ if __name__ == "__main__":
                             date_format = '%m%d%Y'
                             try:
                                 date_obj = datetime.datetime.strptime(date, date_format).strftime("%Y-%m-%d")
-                                print(date_obj)
+                                #print(date_obj)
                                 break
                             except ValueError:
                                 print("Incorrect data format, should be MMDDYYYY")
