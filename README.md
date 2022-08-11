@@ -110,7 +110,7 @@ Total         NaN     NaN      NaN     1283.94         NaN        NaT
 ## Generate your expense report
 If you prefer, you can generate your report and export it into a .csv file along with a pie chart that will open in your web browser.
 
-## Expense report storage (.csv file)
+## Storage (.csv file)
 The .csv file will be in the "data" folder within the folder where your repo is saved on your computer, e.g.:
 
 ```

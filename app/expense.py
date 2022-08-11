@@ -132,6 +132,7 @@ def input_expense():
             #CATEGORY INPUT VALIDATION
             cat_lists = ['auto/gas', 'bill/utility', 'education', 'entertainment', 'food/drink', 'misc', 'shopping', 'travel']
             print('-'*60)
+            print('Categories:')
             for cat_list in range(len(cat_lists)):  
                 print(cat_list, cat_lists[cat_list])
             print('-'*60)
@@ -304,7 +305,9 @@ if __name__ == "__main__":
                         
                         #CATEGORY INPUT VALIDATION
                         cat_lists = ['auto/gas', 'bill/utility', 'education', 'entertainment', 'food/drink', 'misc', 'shopping', 'travel']
+                        
                         print('-'*60)
+                        print('Categories:')
                         for cat_list in range(len(cat_lists)):  
                             print(cat_list, cat_lists[cat_list])
                         print('-'*60)
