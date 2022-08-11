@@ -4,7 +4,7 @@ This is a python application that allows you to create an expense tracker for yo
 
 # Setup 
 
-Optionally fork or close this [remote repository](https://github.com/gl2486/expense-tracker) to create a copy under your own control. Then "clone" or download the remove repository (or your forked copy) onto your local computer, for example your Desktop. Then navigate to wherever you downloaded the repo using the Terminal, e.g.:
+Optionally fork or close this [remote repository](https://github.com/gl2486/expense-tracker) to create a copy under your own control. Then "clone" or download the remove repository (or your forked copy) onto your local computer. Then navigate to wherever you downloaded the repo using the Terminal. For example:
 
 ```
 cd ~/Desktop/expense-tracker
@@ -49,14 +49,15 @@ pytest
 ## Processing User Inputs
 The application should prompt the user to input details of the expenses via command-line interface (CLI). For example:
 + base report currency code [e.g. USD]
-    + note: This will serve as the currency that all your inputs are converted to
+  > *note: This will serve as the currency that all your inputs are converted to*
 + item description
 + select category option
 + cost amount
-+ cost currency code [e.g. EUR]. This is the currency of your expense
++ cost currency code [e.g. EUR]
+  > *note: this is the currency of your expense*
 + date [e.g. MMDDYYYY format]
 
-User will be able to add expenses or delete rows in the DataFrame within the program.
+User will be able to add or delete rows in the DataFrame within the program.
 
 ## Validating User Inputs
 The application should compare the user's selections against the list of valid options for the various inputs to determine whether the user has selected a valid option to be included in the final expense report.
@@ -68,9 +69,21 @@ If the selection is invalid, the program should display a friendly message to th
 # Displaying the Results
 As expenses are input into the program, the details are stored in a DataFrame and a preliminary report will be generated at the end.
 
+## Data Visualization
+A pie chart will always be generated when you end the report, the chart will be displayed on your web browser.
+
+## Storage (.csv file)
+If you prefer, you can export the report into a .csv file and it will be saved in the "data" folder within the repository folder that was initially saved on your computer. For example:
+
+```
+../Desktop/expense-tracker/data
+```
+You will be able to delete an existing .csv and start a new report, or continue editing the existing report when you run the program again.
+
+
 # Demo
 
-## Expense Data Input
+## Data Input
 ```
 Enter <BASE> currency code [e.g. USD]: USD
 Enter item: Coffee
@@ -106,16 +119,4 @@ Enter [A] to add expense, [D] to delete expense, or any 'key' to end:
 Total         NaN     NaN      NaN     1283.94         NaN        NaT
 
 ```
-
-## Generate your expense report
-If you prefer, you can generate your report and export it into a .csv file along with a pie chart that will open in your web browser.
-
-## Storage (.csv file)
-The .csv file will be in the "data" folder within the folder where your repo is saved on your computer, e.g.:
-
-```
-../Desktop/expense-tracker/data
-```
-You will be able to delete existing .csv if it exist, or continue editing the report when you run the program
-
 
