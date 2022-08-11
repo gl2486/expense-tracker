@@ -234,6 +234,7 @@ def input_expense():
         if export_csv == "Y":
             #csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data")
             df.sort_values(by='Date').to_csv(f"{csv_filepath}/my_expense.csv", index=False)
+            print("Thank you for using 'International Expense Tracker', Goodbye!")
             break
         elif export_csv == "N":
             print("Thank you for using 'International Expense Tracker', Goodbye!")
@@ -262,7 +263,6 @@ def input_expense():
     fig.update_layout(title_text='Expense Category Breakdown')
 
     fig.show()
-    print("Thank you for using 'International Expense Tracker', Goodbye!")
     quit()
 
 if __name__ == "__main__":
@@ -408,6 +408,7 @@ if __name__ == "__main__":
                     if export_csv == "Y":
                         #csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data")
                         df.to_csv(f"{csv_filepath}/my_expense.csv", index=False)
+                        print("Thank you for using 'International Expense Tracker', Goodbye!")
                         break
                     elif export_csv == "N":
                         print("Thank you for using 'International Expense Tracker', Goodbye!")
@@ -430,7 +431,6 @@ if __name__ == "__main__":
                                             )])
                 fig.update_layout(title_text='Expense Category Breakdown')
                 fig.show()
-                print("Thank you for using 'International Expense Tracker', Goodbye!")
                 quit()
 
         else:
