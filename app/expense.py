@@ -224,7 +224,7 @@ def input_expense():
             list_ = [f'{currency_output}']
             df.loc['Total',:] = df[list_].sum()
             print('-'*60)
-            print(df.sort_values(by='Date'))
+            print(df.sort_values(by='Date', ignore_index=True))
             print('-'*60)
             break
     
@@ -400,7 +400,7 @@ if __name__ == "__main__":
                         list_ = [f'{currency_output}']
                         df.loc['Total',:] = df[list_].sum()
                         print('-'*60)
-                        print(df.sort_values(by='Date'))
+                        print(df.sort_values(by='Date', ignore_index=True))
                         print('-'*60)
                         break
                 
@@ -410,7 +410,7 @@ if __name__ == "__main__":
                     export_csv = input("Do you want to export expense report to .CSV file? [Y/N]: ").upper()
                     if export_csv == "Y":
                         #csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data")
-                        df.to_csv(f"{csv_filepath}/my_expense.csv", index=False)
+                        df.sort_values(by='Date').to_csv(f"{csv_filepath}/my_expense.csv", index=False)
                         print("Thank you for using 'International Expense Tracker', Goodbye!")
                         break
                     elif export_csv == "N":

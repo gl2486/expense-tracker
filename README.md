@@ -49,7 +49,7 @@ pytest
 ## Processing User Inputs
 The application should prompt the user to input details of the expenses via command-line interface (CLI). For example:
 + base report currency code [e.g. USD]
-    + Note: This will serve as the currency that all your inputs are converted to
+    + note: This will serve as the currency that all your inputs are converted to
 + item description
 + select category option
 + cost amount
