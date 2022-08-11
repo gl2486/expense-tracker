@@ -90,7 +90,7 @@ Enter <Coffee> amount: 5.50
 Enter <5.50> currency code: USD
 Enter date [MMDDYYYY]: 08082022
 ------------------------------------------------------------
-     Item  Cost Currency  USD Amount    Category       Date
+     Item  Cost Currency         USD    Category       Date
 0  Coffee   5.5      USD         5.5  food/drink 2022-08-08
 ------------------------------------------------------------
 Enter [A] to add expense, [D] to delete expense, or any 'key' to end:
@@ -98,7 +98,7 @@ Enter [A] to add expense, [D] to delete expense, or any 'key' to end:
 ## Preliminary Report
 
 ```
-             Item    Cost Currency  USD Amount    Category       Date
+             Item    Cost Currency         USD    Category       Date
 0          Coffee     5.5      USD        5.50  food/drink 2022-08-08
 1  Flight Tickets  1000.0      EUR     1020.64      travel 2022-08-09
 2        Sandwich     7.8      USD        7.80  food/drink 2022-08-08
